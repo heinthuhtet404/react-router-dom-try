@@ -1,0 +1,19 @@
+#btn{
+    text-decoration: none;
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    align-items: center;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#btn.active{
+    background-color: #a33232;
+    color: white;
+}
+
+nav{
+    margin: 50px;
+}
