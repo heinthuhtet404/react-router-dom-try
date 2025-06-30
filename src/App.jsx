@@ -1,32 +1,41 @@
 import React from 'react'
-import { RouterProvider } from 'react-router-dom'
-import { createBrowserRouter } from 'react-router-dom'
-import Main from './layouts/Main.jsx'
-import Home from './pages/Home.jsx'
-import About from './pages/About.jsx'
-import Products from './pages/Products.jsx'
-import Error from './pages/Error.jsx'
-import Product from './pages/Product.jsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Home from './pages/Home'
+import About from './pages/About'
+import Products from './pages/Products'
+import ProductDetails from './pages/ProductDetails'
+import Main from './layouts/Main'
 
 const router = createBrowserRouter([
   {
-    path: '',
-    element: <Main />,
-    errorElement: <Error/>,
-    // This is the default route, it will be used if no path is specified
+    path: '/',
+    element: <Main/>,
     children: [
-      { path: '/', element: <Home /> },
-      { path: '/about', element: <About /> },
-      { path: '/products', element: <Products /> },
-      { path: '/product/:id', element: <Product/> },
-        // This is a dynamic route, it will match any path like /product/1,
+      {
+        index: true, // This will render the Home component when the path is exactly '/'
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: '/about',
+        element: <About />,
+      },
+      {
+        path: '/products',
+        element: <Products />,
+      },
+      {
+        path: '/product/:title',
+        element: <ProductDetails />,
+      },
     ]
   }
 ])
 
+
 const App = () => {
   return (
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   )
 }
 
