@@ -1,14 +1,14 @@
 import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom' // useParams is used to access the dynamic segments of the URL
 
 
 const ProductDetails = () => {
-  const { title } = useParams();
-  const navigate = useNavigate();
+  const { title } = useParams(); // Extracting the product title from the URL
+  const navigate = useNavigate(); // useNavigate is used to programmatically navigate to different routes
 
- const navigateHandler = () => {
-   navigate('/products');
- }
+  const navigateHandler = () => {
+    navigate('/products');
+  }
   return (
     <>
       <div>Product Details</div>

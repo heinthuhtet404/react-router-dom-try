@@ -1,0 +1,113 @@
+##App.jsx
+import { createRouterBrowser, RouterProvider } from "react-router-dom"
+import Main from "./layouts/Main"
+
+const router = createRouterBrowser([{
+	path: '/',
+	element: <Main />,
+	children: [
+		{
+			index: true,
+			path: '/home',
+			element: <Home />
+		},
+		{
+			path: '/about',
+			element: <About />
+		},
+		{
+			path: '/products',
+			element: <Products />
+		},
+		{
+			path: '/product/:title',
+			element: <ProductDetail />
+		}
+	]
+}])
+
+const App = () => {
+	return (
+		<RouterProvider router={router}/>
+	)
+}
+
+export default App;
+---------------------------------------------------------
+##Main.jsx
+import { Outlet } from "react-router-dom"
+import Navbar from "./components/Navbar"
+
+const Main = () => {
+	return (
+		<Navbar/>
+		<Outlet/>
+	)
+}
+
+export default Main;
+------------------------------------------------------------
+##Navbar.jsx
+import { NavLink } from "react-router-dom"
+
+const Navbar = () => {
+	return (
+		<>
+			<NavLink to="/">Home</NavLink>
+			<NavLink to="/about">About us</NavLink>
+			<NavLink to="/products">Products</NavLink>
+		</>
+	)
+}
+export default Navbar;
+-------------------------------------------------------------
+##Products.jsx
+import { Link } from 'react-router-dom';
+
+const PRODUCTS = [
+	{id:1 ,title: apple ,description: this is a apple},
+	{id:2 ,title: orange,description: this is a orange},
+	{id:3 ,title: grape,description: this is a grape},
+	{id:4 ,title: mango,description: this is a mango},
+	{id:5 ,title: coconut,description: this is a coconut},
+]
+
+const Products = () => {
+	return (
+		<>
+			<h1>Products Page</h1>
+			{
+				PRODUCTS.map((product) => {
+					<Link to={`/product/${product.title}`}>
+						<div key={product.id}>
+							<h1>Title is {product.title}<h1/>
+						<div/>
+					</Link>
+				})
+			}
+		</>
+	)
+}
+
+export default Products;
+------------------------------------------------------------
+##ProductDetails.jsx
+import { useNavigate, useParams } from 'react-router-dom'
+
+
+const ProductDetails = () => {
+	const navigate = useNavigate();
+	const { title, description } = useParams();
+	const navigateHandler = () = {
+		navigate('/products');
+	}
+
+	return (
+		<>
+			<h1>Product detail page<h1/>
+			<h2>Product title : {title}<h2/>
+			<p>Product description : {description}</p>
+			<button onClick={navigateHandler}>Back to product page<button/>
+		</>
+	)
+}

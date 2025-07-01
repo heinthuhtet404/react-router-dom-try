@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <Products />,
       },
       {
-        path: '/product/:title',
+        path: '/product/:title', // Dynamic route for product details
         element: <ProductDetails />,
       },
     ]
