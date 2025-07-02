@@ -1,33 +1,46 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useLoaderData } from 'react-router-dom';
+import User from '../components/User';
+import './Products.css'
 
-const PRODUCTS = [
-    {id: 1, title: 'Product1', description: 'Description of Product 1'},
-    {id: 2, title: 'Product2', description: 'Description of Product 2'},
-    {id: 3, title: 'Product3', description: 'Description of Product 3'},
-    {id: 4, title: 'Product4', description: 'Description of Product 4'},
-    {id: 5, title: 'Product5', description: 'Description of Product 5'},
-    {id: 6, title: 'Product6', description: 'Description of Product 6'},
-    {id: 7, title: 'Product7', description: 'Description of Product 7'},
-    {id: 8, title: 'Product8', description: 'Description of Product 8'},
-    {id: 9, title: 'Product9', description: 'Description of Product 9'},
-    {id: 10, title: 'Product10', description: 'Description of Product 10'},
-]
 
 const Products = () => {
+  const PRODUCTS = useLoaderData();
+
   return (
-    <>
+    <section className='products-section'>
       {PRODUCTS.map((product) => (
-        <Link to={`/product/${product.title}`}>
-            <div key={product.id} className="product">
-              <h2>{product.title}</h2>
-              <p>{product.description}</p>
+        <Link to={`/product/${product.title}`} key={product.id}>
+          <div className='products'>
+            <h2>{product.title}</h2>
+            <p>Price: ${product.price}</p>
+            <User userId={product.userId} />
             </div>
-        </Link>
-        ))
-      }
-    </>
+          </Link>
+          
+        
+      ))}
+    </section>
   )
 }
 
-export default Products
+export default Products;
+
+export const loader = async () => {
+  const response = await fetch('https://fakestoreapi.com/products');
+  
+  if(!response.ok) {
+    throw json({
+      message: 'Failed to fetch products',
+    }, {
+      status: 500
+    });
+  } else {
+    const products = await response.json();
+    console.log(products);
+    // Assuming the API returns an array of products
+    return products;
+    
+  }
+}
